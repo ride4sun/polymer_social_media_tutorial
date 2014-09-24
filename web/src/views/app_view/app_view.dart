@@ -20,10 +20,5 @@ class AppView extends PolymerElement {
   void eventHandler(Event event, var detail, Element target) {
     print("$CLASS_NAME::eventHandler()");
   }
-
-  void submit(Event event, var detail, Element target) {
-    // prevent app reload on <form> submission
-    event.preventDefault();
-  }
 }
 

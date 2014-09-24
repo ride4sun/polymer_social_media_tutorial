@@ -61,9 +61,8 @@
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
-        <li>&lt;link rel="import"> is used to import elements the custom element relies on, such as &lt;polymer-element> and &lt;core-header-panel>.</li>
+        <li>&lt;link rel="import"> is used to import elements the custom element relies on, such as &lt;polymer-element> and &lt;core-header-panel>. We're also using this mechanism to bring in fonts!</li>
         <li>The &lt;polymer-element> element is how you define a new custom element in Polymer. In this case, you're creating an element called "app-view".</li>
         <li>The &lt;template> defines the element's internal DOM structure, or <em>shadow DOM</em>. This is where you'll add markup for your custom element.</li>
         <li>Used inside a shadow DOM tree, the <code>:host</code> pseudo-class matches the element that hosts the tree. In this case, it matches the &lt;app-view> element.</li>
@@ -90,10 +89,9 @@
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
         <li>The &lt;core-header-panel> element is a simple container that holds a header (in this case a &lt;core-toolbar> element), and some content. By default, the header stays at the top of the screen, but it can also be set to scroll with the content.</li>
-        <li>The &lt;core-toolbar> element serves as a container for tabs, menu buttons, and other controls.</li>
+        <li>The &lt;core-toolbar> element serves as a container for titles, tabs, menu buttons, and other controls.</li>
       </ul>
     </div>
   </div>
@@ -115,12 +113,11 @@
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
         <li>&lt;paper-tabs> identifies the selected child by its name value or its index value.</li>
         <li><code>selected="all"</code> chooses the first tab as the initially selected tab.</li>
         <li>In this case, the children are &lt;paper-tab> elements, which provide styling and the "ink ripple" animation when you touch a tab.</li>
-        <li><code>self-end</code> is a layout attribute.</li>
+        <li><code>self-end</code> is a CSS Flexbox layout attribute that positions the tabs at the bottom of the toolbar container.</li>
       </ul>
     </div>
   </div>
@@ -153,11 +150,10 @@ core-toolbar {
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
         <li>The &lt;core-header-panel> is a generic element that can be used as either a full-page layout or for a card with a toolbar.</li>
         <li>The <code>overflow</code> and <code>-webkit-overflow-scrolling</code> properties ensure that scrolling works smoothly on touch devices, especially iOS.</li>
-        <li>The <code>#tabs</code> selector selects the &lt;paper-tabs> element. The &lt;core-toolbar> adds a default margin on its children, to space controls appropriately. The tabs don't need this extra spacing.</li>
+        <li>The &lt;core-toolbar> adds a default margin on its children, to space controls appropriately. We use the <code>#tabs</code> selector to select the &lt;paper-tabs> element and get rid of this extra spacing.</li>
         <li>The <code>user-select</code> properties prevent the user from accidentally selecting the tab text.</li>
       </ul>
     </div>
@@ -194,7 +190,6 @@ void tabSelected(Event event, var detail, PaperTabs target) {
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
         <li>The &lt;paper-tabs> element fires a <code>core-select</code> event when you select a tab. You can also add event listeners to the element imperatively just like a built-in element.</li>
         <li>We need to import the <code>PaperTabs</code> class in order to get strong typing on the passed-in element.</li>

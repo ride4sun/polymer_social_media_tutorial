@@ -15,10 +15,5 @@ class PostList extends PolymerElement {
     super.attached();
     print("$CLASS_NAME::attached()");
   }
-
-  // a sample event handler function
-  void eventHandler(Event event, var detail, Element target) {
-    print("$CLASS_NAME::eventHandler()");
-  }
 }
 

@@ -29,6 +29,32 @@
 </head>
 
 <body>
+  <h3>app_view</h3>
+
+  <p>Replace the test card <code>import</code> and tag with &lt;post-list>'s in our app's main view.</p>
+  <div class="flexrow">
+    <div class="code-block">
+        <pre>
+          <code>
+            ...
+<strong>&lt;link rel="import" href="../../components/post_list/post_list.html"></strong>
+            ...
+
+&lt;div class="wrapper" layout vertical center>
+  <strong>&lt;post-list id="list">&lt;/post-list></strong>
+&lt;/div>
+          </code>
+        </pre>
+    </div>
+    <div>
+      <ul>
+        <li>Always remember to import an element's definition before trying to use it.</li>
+        <li>We add an ID to the element so that we can easily get a reference to it in our Dart code.</li>
+        <li>When we run the app, take a look at the console output. Point out all the "attached()" messages.</li>
+      </ul>
+    </div>
+  </div>
+
   <h3>post_model</h3>
 
   <p>Talk about &lt;post-model> and data binding.</p>
@@ -49,8 +75,8 @@
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
+        <li>The HTML file for a non-visual Polymer element is pretty much an empty &lt;template> and the CSS rule <code>display: none</code>. The kind of thing you might find in this &lt;template> is a core non-visual element like &lt;core-ajax>.</li>
         <li>A <em>published property</em> is a property that can be configured by the element's user in HTML markup using an attribute, and it is automatically made <em>observable</em>, which allows it to be connected to another property using two-way data binding.</li>
         <li>Note that we've hardcoded our data for this example, but this model element could easily grab the data from elsewhere using AJAX or any other method at your disposal. In fact, you could even use Polymer's &lt;core-ajax> element in here to get it done declaratively.</li>
       </ul>
@@ -70,11 +96,10 @@
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
         <li>Once again, the <em>published</em> property is exposed as an attribute on the &lt;post-list> element, and it's automatically set to be <em>observable</em>, as well.</li>
         <li>We will use the <code>show</code> attribute in a later step.</li>
-        <li>We also create a reference to a <code>List</code> of posts here. We will bind this to our external data model.</li>
+        <li>We also create a reference to a <code>List</code> of posts here. We will bind this to our data model.</li>
       </ul>
     </div>
   </div>
@@ -89,7 +114,6 @@
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
         <li>The file already includes all needed HTML imports.</li>
         <li>The <code>posts="{{posts}}"</code> attribute adds a two-way data binding between the &lt;post-model> element and the &lt;post-list> element.</li>
@@ -104,7 +128,6 @@
       <pre>
         <code>
 &lt;div layout vertical center>
-
   &lt;template repeat="{{post in posts}}">
     &lt;post-card post="{{post}}">
       &lt;img _src="{{post['avatar']}}" width="70" height="70">
@@ -112,47 +135,16 @@
       &lt;p>{{post['text']}}&lt;/p>
     &lt;/post-card>
   &lt;/template>
-
 &lt;/div>
         </code>
       </pre>
     </div>
     <div>
-      <h4>Key information</h4>
       <ul>
         <li><code>repeat="{{post in posts}}"</code> tells the &lt;template> to create a new instance of itself for each item in the <code>posts</code> array from our data model.</li>
         <li>Each card instance is passed a bound reference to its <code>Map</code> data from the model.</li>
         <li>In each &lt;template> instance, the individual value bindings (such as {{post['avatar']}}) are replaced by the corresponding values for that post.</li>
         <li>Notice in the &lt;img> tag, instead of the usual <code>src</code> attribute, we've used <code>_src</code>. This is a special Polymer version of the attribute that deals well with data binding. (Note that the latest Chrome handles it well either way, but other browsers might not be so progressive.)</li>
-      </ul>
-    </div>
-  </div>
-
-  <h3>app_view</h3>
-
-  <p>Add a &lt;post-list> to our app's main view, first the <code>import</code>, then the list itself.</p>
-  <div class="flexrow">
-    <div class="code-block">
-      <pre>
-        <code>
-          ...
-<strong>&lt;link rel="import" href="../../components/post_list/post_list.html"></strong>
-          ...
-
-&lt;div class="wrapper" layout vertical center>
-          <strong>
-  &lt;post-list id="list">&lt;/post-list>
-          </strong>
-&lt;/div>
-        </code>
-      </pre>
-    </div>
-    <div>
-      <h4>Key information</h4>
-      <ul>
-        <li>Always remember to import an element's definition before trying to use it.</li>
-        <li>We add an ID to the element so that we can easily get a reference to it in our Dart code.</li>
-        <li>When we run the app, take a look at the console output. Point out all the "attached()" messages.</li>
       </ul>
     </div>
   </div>
