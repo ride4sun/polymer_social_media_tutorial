@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Step 2</title>
+
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" />
+
+  <style>
+    body {
+      margin: 15px;
+    }
+
+    .flexrow {
+      display: flex;
+    }
+
+    .code-block {
+      min-width: 540px;
+      margin-right: 10px;
+      overflow-y: auto;
+    }
+
+    pre {
+      padding: 0 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>post_card</h3>
+
+  <p>Create the card structure. Replace the comment with the following code.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;div class="card-header" layout horizontal center>
+  &lt;content select="img">&lt;/content>
+  &lt;content select="h2">&lt;/content>
+&lt;/div>
+
+&lt;content>&lt;/content>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The <code>layout horizontal center</code> attributes are Polymer shorthand to create a CSS Flexbox layout.</li>
+        <li>The three &lt;content> elements create insertion points. (The shadow DOM spec calls this process of selecting nodes <em>distribution</em>).</li>
+        <li>Any &lt;img> children match the first &lt;content> tag and are inserted here, while the second &lt;content> tag selects and inserts any <code>h2</code> children.</li>
+        <li>The final &lt;content> tag, with no <code>select</code> attribute, selects any nodes that haven't already been inserted. (This is probably the most common form of &lt;content> element.)</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Style the content.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+.card-header {
+  margin-bottom: 10px;
+}
+          <strong>
+.card-header ::content h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+.card-header ::content img {
+  width: 70px;
+  border-radius: 50%;
+  margin: 10px;
+}
+          </strong>
+&lt;/style>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The <code>::content</code> pseudo element selects an insertion point (created by a &lt;content> tag). Here, <code>::content h2</code> selects any &lt;h2> that's distributed through a &lt;content> insertion point.</li>
+        <li><strong>Note:</strong> You can’t style the insertion point itself, so the <code>::content</code> pseudo element is always used with a descendant selector.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>app_view</h3>
+
+  <p>Import our new &lt;post-card> element.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;link rel="import" href="../../components/post_card/post_card.html">
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The child elements you specify here are <em>distributed</em> into the &lt;post-card> element's &lt;content> insertion points.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Test the &lt;post-card> element. Add the <code>container</code> &lt;div> and &lt;post-card> element after the &lt;core-toolbar>, inside the &lt;core-header-panel>.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;div class="container" layout vertical center>
+
+  &lt;post-card>
+    &lt;img width="70" height="70" src="../../../images/avatar-07.svg">
+    &lt;h2>Another Developer&lt;/h2>
+    &lt;p>I'm composing with shadow DOM!&lt;/p>
+  &lt;/post-card>
+
+&lt;/div>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The child elements you specify here are <em>distributed</em> into the &lt;post-card> element's &lt;content> insertion points.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

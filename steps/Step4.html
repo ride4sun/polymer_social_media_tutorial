@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Step 4</title>
+
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" />
+
+  <style>
+    body {
+      margin: 15px;
+    }
+
+    .flexrow {
+      display: flex;
+    }
+
+    .code-block {
+      min-width: 540px;
+      margin-right: 10px;
+      overflow-y: auto;
+    }
+
+    pre {
+      padding: 0 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>post_card</h3>
+
+  <p>Add a "favorite" button.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;div class="card-header" layout horizontal center>
+  &lt;content select="img">&lt;/content>
+  &lt;content select="h2">&lt;/content>
+&lt;/div>
+
+<strong>&lt;core-icon-button id="favicon" icon="favorite" on-tap="{{favoriteTapped}}">&lt;/core-icon-button></strong>
+
+&lt;content>&lt;/content>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>As the name implies, &lt;core-icon-button> creates a button with an embedded icon. Polymer includes several sets of scalable icons.</li>
+        <li>The <code>icon="favorite"</code> attribute selects the heart icon from the default icon set.</li>
+        <li>The <code>on-tap="{{favoriteTapped}}"</code> attribute specifies a method to call on the post-card element when the button is tapped.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Add the <code>favorite</code> attribute/property and the <code>favoriteTapped()</code> method to the <code>PostCard</code> class.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+@PublishedProperty(reflect: true) bool favorite = false;
+
+void favoriteTapped(Event event, var detail, Element target) {
+  print("$CLASS_NAME::favoriteTapped()");
+
+  post['favorite'] = favorite = !favorite;
+}
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>Here the <code>favorite</code> property defaults to <code>false</code>, and it reflects, meaning the <code>favorite</code> attribute is updated in the DOM whenever the property value changes. In the case of a boolean value, the attribute is either present or not present on the tag in the DOM. We need this to happen for our styling strategy. We also make sure our back end model is kept up to date.</li>
+        <li>The <code>favoriteTapped()</code> method toggles the state of the <code>favorite</code> class property.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Style the "favorite" button.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+core-icon-button {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  color: #636363;
+}
+
+:host([favorite]) core-icon-button {
+  color: #da4336;
+}
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The <code>color</code> property sets the fill color on the SVG icon.</li>
+        <li>The <code>:host([favorite]) core-icon-button</code> selector sets the fill color when the <code>favorite</code> attribute is set on the &lt;post-card> element.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Update the &lt;app-view>'s <code>tabSelected()</code> method to filter the list of posts based on the selection.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+import '../../components/post_list/post_list.dart';
+
+void tabSelected(Event event, var detail, PaperTabs target) {
+  if (detail['isSelected']) {
+    print("$CLASS_NAME::tabSelected() -- ${target.selected}");
+            <strong>
+    PaperTabs tabs = $['tabs'];
+    PostList list = $['list'];
+
+    list.show = tabs.selected;</strong>
+  }
+}
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>First, don't forget to import the definition of the <code>PostList</code> class to satisfy the Dart analyzer.</li>
+        <li>We create typed references to the &lt;paper-tabs> element and the &lt;post-list> element using their IDs. <code>PolymerElement</code> provides a <code>Map</code> called <code>$</code> that contains a key-value pair for every element ID that appears within its shadow DOM.</li>
+        <li>Lastly, we set the &lt;post-list>'s <code>show</code> property to either "all" or "favorites", whichever is currently stored in &lt;paper-tab>'s <code>selected</code> property.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>post_list</h3>
+
+  <p>Update the &lt;post-card> repeater to wire up the favorites filtering.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;template repeat="{{post in posts}}">
+  &lt;post-card post="{{post}}" <strong>hidden?="{{show == 'favorites' && !post['favorite']}}"</strong>>
+    &lt;img _src="{{post['avatar']}}" width="70" height="70">
+    &lt;h2>{{post['username']}}&lt;/h2>
+    &lt;p>{{post['text']}}&lt;/p>
+  &lt;/post-card>
+&lt;/template>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The <code>hidden?="{{}}"</code> expression is special syntax for a boolean attribute, which sets the attribute if the binding expression evaluates to true.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!-- Polymer Element HTML import links go here (above <polymer-element> tag) -->
+<link rel="import" href="packages/polymer/polymer.html">
+<link rel="import" href="packages/core_elements/core_header_panel.html">
+<link rel="import" href="packages/core_elements/core_toolbar.html">
+<link rel="import" href="packages/paper_elements/paper_tabs.html">
+<link rel="import" href="../../../resources/fonts.html">
+
+<polymer-element name="app-view">
+  <template>
+    <link rel="stylesheet" href="../../../resources/css/app.css">
+
+    <style>
+      :host {
+        height: 100%;
+        background-color: #E5E5E5;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .wrapper {
+        width: 80%;
+        margin: 50px auto;
+      }
+
+      @media (min-width: 481px) {
+        #tabs {
+          width: 200px;
+        }
+
+        .wrapper {
+          width: 400px;
+        }
+      }
+    </style>
+
+
+  </template>
+
+  <script type="application/dart" src="app_view.dart"></script>
+</polymer-element>

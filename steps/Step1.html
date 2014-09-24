@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Step 1</title>
+
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" />
+
+  <style>
+    body {
+      margin: 15px;
+    }
+
+    .flexrow {
+      display: flex;
+    }
+
+    .code-block {
+      min-width: 540px;
+      margin-right: 10px;
+      overflow-y: auto;
+    }
+
+    pre {
+      padding: 0 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>app_view</h3>
+
+  <p>Talk about custom element structure.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;link rel="import" href="packages/polymer/polymer.html">
+&lt;link rel="import" href="packages/core_elements/core_header_panel.html">
+
+&lt;polymer-element name="app-view">
+  &lt;template>
+    &lt;link rel="stylesheet" href="../../../resources/css/app.css">
+
+    &lt;style>
+      :host {
+        height: 100%;
+        background-color: #E5E5E5;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      ...
+
+    &lt;/style>
+
+    &lt;script type="application/dart" src="app_view.dart">&lt;/script>
+  &lt;/template>
+&lt;/polymer-element>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>&lt;link rel="import"> is used to import elements the custom element relies on, such as &lt;polymer-element> and &lt;core-header-panel>.</li>
+        <li>The &lt;polymer-element> element is how you define a new custom element in Polymer. In this case, you're creating an element called "app-view".</li>
+        <li>The &lt;template> defines the element's internal DOM structure, or <em>shadow DOM</em>. This is where you'll add markup for your custom element.</li>
+        <li>Used inside a shadow DOM tree, the <code>:host</code> pseudo-class matches the element that hosts the tree. In this case, it matches the &lt;app-view> element.</li>
+        <li>Ordinary selectors used inside the shadow DOM are scoped to the shadow DOM. The <code>.wrapper</code> class selector here only matches elements in &lt;app-view>'s shadow DOM.</li>
+        <li>The &lt;script> tag at the bottom of the &lt;template> points to the Dart class containing this element's imperative code. It is also possible to simply include the Dart code itself within the tag.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Add basic app structure.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;core-header-panel flex>
+
+  &lt;core-toolbar>
+  &lt;/core-toolbar>
+
+  &lt;!-- main page content will go here -->
+
+&lt;/core-header-panel>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The &lt;core-header-panel> element is a simple container that holds a header (in this case a &lt;core-toolbar> element), and some content. By default, the header stays at the top of the screen, but it can also be set to scroll with the content.</li>
+        <li>The &lt;core-toolbar> element serves as a container for tabs, menu buttons, and other controls.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Add the tabs.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;core-toolbar>
+  <strong>
+  &lt;paper-tabs id="tabs" selected="all" self-end>
+    &lt;paper-tab name="all">All&lt;/paper-tab>
+    &lt;paper-tab name="favorites">Favorites&lt;/paper-tab>
+  &lt;/paper-tabs>
+  </strong>
+&lt;/core-toolbar>
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>&lt;paper-tabs> identifies the selected child by its name value or its index value.</li>
+        <li><code>selected="all"</code> chooses the first tab as the initially selected tab.</li>
+        <li>In this case, the children are &lt;paper-tab> elements, which provide styling and the "ink ripple" animation when you touch a tab.</li>
+        <li><code>self-end</code> is a layout attribute.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Add styles.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+core-header-panel {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+core-toolbar {
+  background: #03a9f4;
+  color: white;
+}
+
+#tabs {
+  width: 100%;
+  margin: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-transform: uppercase;
+}
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The &lt;core-header-panel> is a generic element that can be used as either a full-page layout or for a card with a toolbar.</li>
+        <li>The <code>overflow</code> and <code>-webkit-overflow-scrolling</code> properties ensure that scrolling works smoothly on touch devices, especially iOS.</li>
+        <li>The <code>#tabs</code> selector selects the &lt;paper-tabs> element. The &lt;core-toolbar> adds a default margin on its children, to space controls appropriately. The tabs don't need this extra spacing.</li>
+        <li>The <code>user-select</code> properties prevent the user from accidentally selecting the tab text.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Add an event handler.</p>
+  <div class="flexrow">
+    <div class="code-block">
+      <pre>
+        <code>
+&lt;paper-tabs id="tabs" selected="all" self-end
+  <strong>on-core-select="{{tabSelected}}"</strong>>
+        </code>
+      </pre>
+
+      <pre>
+        <code>
+library app_view;
+
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+<strong>import 'package:paper_elements/paper_tabs.dart';</strong>
+        </code>
+      </pre>
+
+      <pre>
+        <code>
+void tabSelected(Event event, var detail, PaperTabs target) {
+  if (detail['isSelected']) {
+    print("$CLASS_NAME::tabSelected() -- ${target.selected}");
+  }
+}
+        </code>
+      </pre>
+    </div>
+    <div>
+      <h4>Key information</h4>
+      <ul>
+        <li>The &lt;paper-tabs> element fires a <code>core-select</code> event when you select a tab. You can also add event listeners to the element imperatively just like a built-in element.</li>
+        <li>We need to import the <code>PaperTabs</code> class in order to get strong typing on the passed-in element.</li>
+        <li><code>tabSelected()</code> will be called on selections and de-selections, so we need to check which we're getting. <code>detail</code> comes in as a <code>JsObject</code>, but we can access its properties as though it were a <code>Map</code>.</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>
