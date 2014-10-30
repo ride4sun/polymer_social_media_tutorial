@@ -2,6 +2,8 @@ library app_view;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
+import 'package:paper_elements/paper_tabs.dart';
+
 
 @CustomTag('app-view')
 class AppView extends PolymerElement {
@@ -18,7 +20,13 @@ class AppView extends PolymerElement {
 
   // a sample event handler function
   void eventHandler(Event event, var detail, Element target) {
-    print("$CLASS_NAME::eventHandler()");
+    print("$CLASS_NAME::eventHandler()"); 
   }
-}
+  
+  void tabSelected(Event event, var detail, PaperTabs target) {
+    if (detail['isSelected']) {
+      print("$CLASS_NAME::tabSelected() -- ${target.selected}");
+    }
+  }
 
+}

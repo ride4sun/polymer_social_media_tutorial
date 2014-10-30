@@ -1,0 +1,39 @@
+:host {
+    height: 100%;
+    background-color: #E5E5E5;
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    width: 80%;
+    margin: 50px auto;
+}
+
+@media ( min-width : 481px) {
+    #tabs {
+        width: 200px;
+    }
+    .wrapper {
+        width: 400px;
+    }
+}
+
+core-header-panel {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+core-toolbar {
+    background: #03a9f4;
+    color: white;
+}
+
+#tabs {
+    width: 100%;
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+}

@@ -7,30 +7,25 @@
 
 <polymer-element name="app-view">
   <template>
-    <style>
-      :host {
-        height: 100%;
-        background-color: #E5E5E5;
-        font-family: 'Roboto', sans-serif;
-      }
+    <link href="app_view.css" rel="stylesheet">
+    <style></style>
+     
+    <core-header-panel flex>
 
-      .wrapper {
-        width: 80%;
-        margin: 50px auto;
-      }
+      <core-toolbar>
+        <paper-tabs id="tabs" selected="all" self-end on-core-select="{{tabSelected}}">
+        <paper-tab name="all">All</paper-tab>
+        <paper-tab name="favorites">Favorites</paper-tab>
+      </paper-tabs>
+      
+      </core-toolbar>
 
-      @media (min-width: 481px) {
-        #tabs {
-          width: 200px;
-        }
+      <!-- main page content will go here -->
 
-        .wrapper {
-          width: 400px;
-        }
-      }
-    </style>
+    </core-header-panel>
+    
 
-  </template>
+  </template> 
 
   <script type="application/dart" src="app_view.dart"></script>
 </polymer-element>
