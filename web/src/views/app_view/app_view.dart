@@ -3,6 +3,7 @@ library app_view;
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:paper_elements/paper_tabs.dart';
+import '../../components/post_list/post_list.dart';
 
 
 @CustomTag('app-view')
@@ -26,7 +27,13 @@ class AppView extends PolymerElement {
   void tabSelected(Event event, var detail, PaperTabs target) {
     if (detail['isSelected']) {
       print("$CLASS_NAME::tabSelected() -- ${target.selected}");
+              
+      PaperTabs tabs = $['tabs'];
+      PostList list = $['list'];
+
+      list.show = tabs.selected;
     }
   }
+
 
 }

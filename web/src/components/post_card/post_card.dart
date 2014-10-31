@@ -9,8 +9,17 @@ class PostCard extends PolymerElement {
   static const CLASS_NAME = "PostCard";
 
   @published Map post;
+  @PublishedProperty(reflect: true) bool favorite = false;
+
 
   PostCard.created() : super.created();
+  
+  void favoriteTapped(Event event, var detail, Element target) {
+    print("$CLASS_NAME::favoriteTapped() -- ${post['username']}");
+
+    post['favorite'] = favorite = !favorite;
+  }
+
 
   // life-cycle method called by the Polymer framework when the element is attached to the DOM
   @override void attached() {

@@ -28,6 +28,18 @@
           border-radius: 50%;
         margin: 10px;
         }
+        
+        core-icon-button {
+            position: absolute;
+            top: 3px;
+             right: 3px;
+            color: #636363;
+        }
+
+        :host([favorite]) core-icon-button {
+            color: #da4336;
+        }
+        
       
     </style>
 
@@ -35,6 +47,9 @@
         <content select="img"></content>
         <content select="h2"></content>
     </div>
+    
+    <core-icon-button id="favicon" icon="favorite" on-tap="{{favoriteTapped}}"></core-icon-button>
+    
     
     <content></content>
 
