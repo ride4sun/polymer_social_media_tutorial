@@ -8,6 +8,7 @@ class PostModel extends PolymerElement {
 
   static const CLASS_NAME = "PostModel";
 
+
   @published List<Map> posts = toObservable([
       {
         "uid": 1,

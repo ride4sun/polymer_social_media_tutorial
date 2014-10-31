@@ -7,7 +7,10 @@ import 'package:polymer/polymer.dart';
 class PostList extends PolymerElement {
 
   static const CLASS_NAME = "PostList";
-
+  
+  @published String show = "all";
+  @observable List<Map> posts;
+  
   PostList.created() : super.created();
 
   // life-cycle method called by the Polymer framework when the element is attached to the DOM
