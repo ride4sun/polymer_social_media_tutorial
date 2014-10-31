@@ -3,6 +3,7 @@
 <link rel="import" href="packages/core_elements/core_header_panel.html">
 <link rel="import" href="packages/core_elements/core_toolbar.html">
 <link rel="import" href="packages/paper_elements/paper_tabs.html">
+<link rel="import" href="../../components/post_card/post_card.html">
 <link rel="import" href="../../../resources/fonts.html">
 
 <polymer-element name="app-view">
@@ -20,7 +21,15 @@
       
       </core-toolbar>
 
-      <!-- main page content will go here -->
+      <div class="wrapper" layout vertical center>
+         <post-card>
+            <img src="../../../resources/images/avatar-07.svg" width="70" height="70">
+            <h2>Another Developer</h2>
+            <p>I'm composing with shadow DOM!</p>
+        </post-card>
+         
+      </div>
+
 
     </core-header-panel>
     
